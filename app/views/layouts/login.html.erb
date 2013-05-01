@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<%= render :partial => 'layouts/version.html.erb' %>
+
+<html class='login'>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+    <title><%= content_for?(:title) ? yield(:title) : "FixNix #{Snorby::VERSION}" %></title>
+
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="FixNix- Redefining Security" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+
+    <%= csrf_meta_tag %>
+
+    <script type="text/javascript" charset="utf-8">
+      var snorby_url = "<%= request.protocol %><%= escape_javascript request.host %>";
+    </script>
+
+    <%= include_stylesheets :snorby, :media => 'all' %>
+    <%= include_javascripts :snorby %>
+
+  </head>
+
+  <body class='login'>
+
+    <div id="login">
+      <%= image_tag 'login.png', width: '500px', height: '100px', style: 'padding-bottom: 20px' %>
+      <%= yield %>
+      <hr>
+      <div class="login-footer">
+      &copy; <%= Time.now.year %> <a href="www.fixrnix.in">FixNix InfoSec Solutions, Inc</a> - Created By: Nixers
+      <br /><br /> 
+        FixNix <%= Snorby::VERSION %> - <%= link_to 'www.fixrnix.in', 'www.fixrnix.in' %> 
+      </div>
+    </div>
+    <%- flash.each do |type, message| -%>
+
+      <script type="text/javascript" charset="utf-8">
+        flash_message.push({type: "<%= type %>", message: "<%= message %>"}); flash();
+      </script>
+
+    <%- end -%>
+
+  </body>
+</html>
